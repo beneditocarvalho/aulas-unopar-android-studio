@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +79,28 @@ public class CadastrarFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.framelayout, new JogarFragment()).commit();
+            }
+        });
+
+        mBotaoCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pergunta = mEditTextPerg.getText().toString();
+                String resposta = mEditTextResp.getText().toString();
+
+                if(!pergunta.isEmpty() && !resposta.isEmpty()){
+
+                    Questoes questoes = new Questoes(pergunta, resposta);
+
+                    BancoDeDados.getBancoDeDados(getActivity()).meuDAO()
+                            .inserirQuestao(questoes);
+
+                    mEditTextPerg.setText("");
+                    mEditTextResp.setText("");
+
+                    Toast.makeText(getActivity(), "Inserido com sucesso", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }
