@@ -2,6 +2,8 @@ package com.example.jogoprapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,4 +75,33 @@ public class JogarFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jogar, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mBotaoCadastrarPR = getActivity().findViewById(R.id.botaoCadastrarPR);
+        mBotaoPular = getActivity().findViewById(R.id.botaoPular);
+        mBotaoExibirResp = getActivity().findViewById(R.id.botaoExibirResposta);
+        mTextPergunta = getActivity().findViewById(R.id.pergunta);
+        mTextResposta = getActivity().findViewById(R.id.resposta);
+
+        mBotaoCadastrarPR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framelayout, new CadastrarFragment()).commit();
+            }
+        });
+
+       mBotaoExibirResp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTextResposta.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
+
 }
